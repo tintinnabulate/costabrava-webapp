@@ -18,8 +18,10 @@ type configuration struct {
 }
 
 var config configuration
+var tmpls = template.Must(template.ParseGlob("*.tmpl")) //create a set of templates from many files.
 
 func init() {
+	// load config
 	file, _ := os.Open("config.json")
 	defer file.Close()
 	decoder := json.NewDecoder(file)
@@ -29,12 +31,12 @@ func init() {
 		fmt.Println("error:", err)
 	}
 
+	// define handlers
 	http.HandleFunc("/", rootHandler)
 }
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
-	t, _ := template.ParseFiles("index.html")
-	t.Execute(w, nil)
+	tmpls.ExecuteTemplate(w, "index", nil)
 }
 
 func main() {
