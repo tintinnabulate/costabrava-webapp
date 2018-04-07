@@ -38,7 +38,7 @@ func init() {
 }
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
-	tmpls.ExecuteTemplate(w, "foo", nil)
+	tmpls.ExecuteTemplate(w, "index", nil)
 }
 
 func main() {
