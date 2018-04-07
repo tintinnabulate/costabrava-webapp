@@ -184,10 +184,12 @@ header.masthead hr {
 
 header.masthead h1 {
   font-size: 2rem;
+  text-shadow: 1px 1px #000;
 }
 
 header.masthead p {
-  font-weight: 300;
+  font-weight: 999;
+  text-shadow: 1px 1px #000;
 }
 
 @media (min-width: 768px) {
