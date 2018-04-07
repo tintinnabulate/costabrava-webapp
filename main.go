@@ -33,10 +33,12 @@ func init() {
 
 	// define handlers
 	http.HandleFunc("/", rootHandler)
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+
 }
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
-	tmpls.ExecuteTemplate(w, "index", nil)
+	tmpls.ExecuteTemplate(w, "foo", nil)
 }
 
 func main() {
