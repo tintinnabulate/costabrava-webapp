@@ -1,8 +1,7 @@
-# COSTA BRAVA CONVENTION 2018 - TOSSA DE MAR
-
-# HOW TO GET THERE
+# COSTA BRAVA CONVENTION - HOW TO GET THERE
 
 ## Plane
+
 The nearest airports are Girona (GRO) and Barcelona El Prat (BCN)
 
 Details for both airports can be found at www.aena.es
