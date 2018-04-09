@@ -1,6 +1,8 @@
-# COSTA BRAVA CONVENTION - HOW TO GET THERE
+# COSTA BRAVA CONVENTION
 
-## Plane
+How to get there...
+
+## Plane
 
 The nearest airports are Girona (GRO) and Barcelona El Prat (BCN)
 
