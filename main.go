@@ -36,15 +36,17 @@ var templateText string = `
 </body>
 `
 
-// Real blackfriday functionality commented out, using strings.ToLower for demo
-func markDowner(args ...interface{}) template.HTML {
-	return template.HTML(blackfriday.Run([]byte(fmt.Sprintf("%s", args...))))
-}
-
+// site configuration
 var config configuration
-var tmpls = template.Must(template.ParseGlob("*.tmpl")) //create a set of templates from many files.
-var foo, _ = ioutil.ReadFile("getting_here.md")
-var gettingHere = &Page{Title: "Getting here", Body: string(foo)}
+
+// create a set of templates from many files.
+var tmpls = template.Must(template.ParseGlob("*.tmpl"))
+
+// the "getting here" page
+var ghFile, _ = ioutil.ReadFile("getting_here.md")
+var gettingHere = &Page{Title: "Getting here", Body: string(ghFile)}
+
+// our markdown template
 var markdownTmpl = template.Must(template.New("page.html").Funcs(template.FuncMap{"markDown": markDowner}).Parse(templateText))
 
 func init() {
@@ -62,7 +64,10 @@ func init() {
 	http.HandleFunc("/", rootHandler)
 	http.HandleFunc("/getting_here", markdownHandler)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+}
 
+func markDowner(args ...interface{}) template.HTML {
+	return template.HTML(blackfriday.Run([]byte(fmt.Sprintf("%s", args...))))
 }
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
