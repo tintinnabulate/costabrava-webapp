@@ -6,14 +6,14 @@ How to get there...
 
 The nearest airports are Girona (GRO) and Barcelona El Prat (BCN)
 
-Details for both airports can be found at www.aena.es
+Details for both airports can be found at http://www.aena.es
 
 ### Resort transfers
 Shared coach transfers from either airport include those offered by
 
-* [www.holidaytaxis.com]()
-* [www.hoppa.com]()
-* [www.mozio.com]()
+* http://www.holidaytaxis.com
+* http://www.hoppa.com
+* http://www.mozio.com
 
 ## Buses
 The main public bus service is by SARFA BUSES http://compras.moventis.es/en-GB 
@@ -42,10 +42,10 @@ From Barcelona: The RENFE commuter service to Massanet-Massanes or Blanes. Depar
 
 ## TOURIST INFORMATION
 
-* [www.tossademar.com]()
-* [www.infotossa.com]()
-* [www.spain-holiday.com/Tossa-De-Mar]()
+* http://www.tossademar.com
+* http://www.infotossa.com
+* http://www.spain-holiday.com/Tossa-De-Mar
 
 ## GOLDEN BAHIA HOTEL
 
-* [www.goldenhotels.com/en/bahia-tossa-spa]()
+* http://www.goldenhotels.com/en/bahia-tossa-spa
