@@ -71,7 +71,25 @@ func markDowner(args ...interface{}) template.HTML {
 }
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
-	tmpls.ExecuteTemplate(w, "index", nil)
+ if r.URL.Path != "/" {
+        http.Error(w, "404 not found.", http.StatusNotFound)
+        return
+ }
+ switch r.Method {
+    case "GET":     
+         tmpls.ExecuteTemplate(w, "index", nil)
+    case "POST":
+        // Call ParseForm() to parse the raw query and update r.PostForm and r.Form.
+        if err := r.ParseForm(); err != nil {
+            fmt.Fprintf(w, "ParseForm() err: %v", err)
+            return
+        }
+        address := r.FormValue("email")
+        fmt.Fprintf(w, "Address = %s\n", address)
+    default:
+        fmt.Fprintf(w, "Sorry, only GET and POST methods are supported.")
+    }
+	
 }
 
 func markdownHandler(w http.ResponseWriter, r *http.Request) {
