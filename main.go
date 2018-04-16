@@ -62,7 +62,7 @@ func init() {
 
 	// define handlers
 	http.HandleFunc("/", rootHandler)
-	http.HandleFunc("/getting_here", markdownHandler)
+	http.HandleFunc("/getting_here", gettingHereHandler)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 }
 
@@ -90,6 +90,15 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Sorry, only GET and POST methods are supported.")
 	}
 
+}
+
+func gettingHereHandler(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		tmpls.ExecuteTemplate(w, "getting_here", nil)
+	default:
+		fmt.Fprintf(w, "Sorry, only GET method is supported.")
+	}
 }
 
 func markdownHandler(w http.ResponseWriter, r *http.Request) {
