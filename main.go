@@ -43,11 +43,11 @@ func init() {
 	// define handlers
 	http.HandleFunc("/", rootHandler)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-	http.HandleFunc("/favicon.ico", faviconHandler)
+	http.HandleFunc("/favicon.png", faviconHandler)
 }
 
 func faviconHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "/static/img/favicon.png")
+	http.ServeFile(w, r, "favicon.png")
 }
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
