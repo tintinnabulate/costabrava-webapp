@@ -3,8 +3,10 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"google.golang.org/appengine"
+	"google.golang.org/appengine/log"
+	"google.golang.org/appengine/mail"
 	"html/template"
-	"log"
 	"net/http"
 	"os"
 )
@@ -29,6 +31,18 @@ var config configuration
 // create a set of templates from many files.
 var tmpls = template.Must(template.ParseGlob("*.tmpl"))
 
+const howToContactUs = `
+Dear fellow member,
+
+To contact the committee, please send your queries in an email to <info@costabravaconvention.com>.
+
+We will do our best to get back to you in a timely manner.
+
+In fellowship,
+
+Costa Brava Committee.
+`
+
 func init() {
 	// load config
 	file, _ := os.Open("config.json")
@@ -43,11 +57,6 @@ func init() {
 	// define handlers
 	http.HandleFunc("/", rootHandler)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-	http.HandleFunc("/favicon.png", faviconHandler)
-}
-
-func faviconHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "favicon.png")
 }
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
@@ -65,13 +74,18 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		address := r.FormValue("email")
-		fmt.Fprintf(w, "Address = %s\n", address)
+		ctx := appengine.NewContext(r)
+		msg := &mail.Message{
+			Sender:  "[DO NOT REPLY] Costa Brava Admin <donotreply@costabrava-1.appspotmail.com>",
+			To:      []string{address},
+			Subject: "How to Contact Us",
+			Body:    howToContactUs,
+		}
+		if err := mail.Send(ctx, msg); err != nil {
+			log.Errorf(ctx, "Couldn't send email: %v", err)
+		}
+		http.Redirect(w, r, "/", http.StatusFound)
 	default:
 		fmt.Fprintf(w, "Sorry, only GET and POST methods are supported.")
 	}
-
-}
-
-func main() {
-	log.Fatal(http.ListenAndServe(":8080", nil))
 }
