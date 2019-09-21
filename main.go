@@ -2,11 +2,13 @@ package main
 
 import (
 	"fmt"
-	"google.golang.org/appengine"
-	"google.golang.org/appengine/log"
-	"google.golang.org/appengine/mail"
 	"html/template"
+	"log"
 	"net/http"
+	"os"
+
+	"google.golang.org/appengine"
+	"google.golang.org/appengine/mail"
 )
 
 // create a set of templates from many files.
@@ -24,7 +26,17 @@ In fellowship,
 Costa Brava Committee.
 `
 
-func init() {
+func main() {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	registerHandlers()
+
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), nil))
+}
+
+func registerHandlers() {
 	// define handlers
 	http.HandleFunc("/", rootHandler)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
@@ -53,7 +65,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 			Body:    howToContactUs,
 		}
 		if err := mail.Send(ctx, msg); err != nil {
-			log.Errorf(ctx, "Couldn't send email: %v", err)
+			fmt.Errorf("Couldn't send email: %v", err)
 		}
 		http.Redirect(w, r, "/", http.StatusFound)
 	default:
