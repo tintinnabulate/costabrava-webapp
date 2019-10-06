@@ -35,7 +35,8 @@ const howToContactUsHTML = `
 <body>
 <p>Dear fellow member,</p>
 
-<p>To contact the committee, please send your queries in an email to <info@costabravaconvention.com>.</p>
+<p>To contact the committee, please send your queries in an email to
+<a href="mailto:info@costabravaconvention.com">info@costabravaconvention.com</a>.</p>
 
 <p>We will do our best to get back to you in a timely manner.</p>
 
