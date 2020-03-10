@@ -21,7 +21,7 @@ var (
 const howToContactUs = `
 Dear fellow member,
 
-To contact the committee, please send your queries in an email to <info@costabravaconvention.com>.
+To contact the committee, please send your queries in an email to <%s>.
 
 We will do our best to get back to you in a timely manner.
 
@@ -36,7 +36,7 @@ const howToContactUsHTML = `
 <p>Dear fellow member,</p>
 
 <p>To contact the committee, please send your queries in an email to
-<a href="mailto:info@costabravaconvention.com">info@costabravaconvention.com</a>.</p>
+<a href="mailto:%s">%s</a>.</p>
 
 <p>We will do our best to get back to you in a timely manner.</p>
 
@@ -67,7 +67,7 @@ func main() {
 func ComposeEmail(address string) []byte {
 	m := mail.NewV3Mail()
 
-	sender_address := "info@costabravaconvention.com"
+	sender_address := config.ContactEmail
 	sender_name := "Costa Brava Convention Committee"
 	e := mail.NewEmail(sender_name, sender_address)
 	m.SetFrom(e)
@@ -82,8 +82,8 @@ func ComposeEmail(address string) []byte {
 	p.AddTos(tos...)
 	m.AddPersonalizations(p)
 
-	plainTextContent := howToContactUs
-	htmlTextContent := howToContactUsHTML
+	plainTextContent := fmt.Sprintf(howToContactUs, config.ContactEmail)
+	htmlTextContent := fmt.Sprintf(howToContactUsHTML, config.ContactEmail, config.ContactEmail)
 	c := mail.NewContent("text/plain", plainTextContent)
 	m.AddContent(c)
 	c = mail.NewContent("text/html", htmlTextContent)
@@ -171,5 +171,6 @@ func handlersInit() {
 }
 
 type Config struct {
-	SendGridKey string `id:"SendGridKey"       default:"SendGridKey"`
+	ContactEmail string `id:"ContactEmail"      default:"ContactEmail"`
+	SendGridKey  string `id:"SendGridKey"       default:"SendGridKey"`
 }
