@@ -1,0 +1,4 @@
+{
+    "SendGridKey":  "YourSendGridAPIKeyGoesHere",
+    "ContactEmail": "YourContactEmailAddressGoesHere"
+}
